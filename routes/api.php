@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('register','Backend\AuthController@register');
+Route::post('login','Backend\AuthController@login');
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('logout','Backend\AuthController@logout');
+
+    Route::resource('product-category','Backend\ProductCategoryController');
+    Route::get('get-product-category-parent','Backend\ProductCategoryController@getProductCategoryParent');
 });
